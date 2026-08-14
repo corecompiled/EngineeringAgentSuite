@@ -106,6 +106,7 @@ created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
 status: in-progress   # in-progress | blocked-on-questions | completed
 confidence: <NN>%
+ns_version: "NS <x.y>"   # if mentioned anywhere in the record/activity stream; omit if unknown
 ---
 
 # <NUMBER> — <short description>

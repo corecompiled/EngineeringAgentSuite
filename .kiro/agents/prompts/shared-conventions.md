@@ -45,7 +45,14 @@ user first.
   `INC0012345-login-timeout.md`). Slug = lowercased title, non-alphanumerics → `-`, ~6 words
   max. Dates live in frontmatter (`created`/`updated`), never in the filename.
 - Frontmatter contract: `item`, `title`, `type`, `state` (source-system state), `created`,
-  `updated`, `status`, `confidence`.
+  `updated`, `status`, `confidence`, `ns_version` (quoted, e.g. `"NS 4.10"`; omit or `""` when
+  unknown).
+- NS version extraction: if a NewSkies version ("NS 4.8", "4.10", "NewSkies 4.11", …) is
+  mentioned ANYWHERE — item fields, description, comments/work notes, linked items, or by the
+  user — record it in `ns_version` (normalized to `"NS <major>.<minor>"`). If multiple versions
+  are in play, record the one the investigation targets and note the others in the body. When
+  touching an existing note that lacks `ns_version`, backfill it if the version is
+  discoverable.
 - Write notes in plain markdown + YAML frontmatter only — no Obsidian-specific syntax (no
   wikilinks); standard relative markdown links are fine.
 - Living-file rule: one note per item, updated in place. Bump `updated:`, append a Session Log
@@ -63,6 +70,12 @@ NEXT TO the agent configs (workspace install: `.kiro/agents/memory/`; global ins
 - Every change to memory or to any prompt file gets a dated entry in the memory file's
   `## Changelog` section: `- YYYY-MM-DD — <what changed and why>`.
 - If a remembered fact turns out to be wrong or stale, correct it (don't append a contradiction).
+- Correction capture: when the user corrects your output or approach, decide whether the
+  correction is durable (a preference or rule that will recur) or a one-off; persist durable
+  ones to Learned Preferences with a short "why".
+- Pruning: when a memory file grows past ~150 lines, propose a consolidation — merge related
+  entries, retire stale ones — and apply it with user confirmation. Keep the Changelog to
+  recent entries; summarize older history into one line.
 
 ## 4. MCP bootstrap (first run, or when the recorded setup stops working)
 
@@ -98,6 +111,14 @@ the change persist:
   `Get-Content <file> -Raw | ConvertFrom-Json`) — a syntax error makes the agent silently
   disappear from Kiro.
 - Never rename an agent, move its files, or weaken a write fence on your own initiative.
+- Session-end reflection: before ending a substantive session, sweep once — new durable
+  preference? gotcha worth a skill (see §6)? a wrong memory to fix? Persist what qualifies;
+  skip silently when there's nothing.
+- Sync-back rule: the SeniorDeveloper repo is the source of truth for prompts and skills. When
+  the repo is the current workspace, make self-edits in the REPO copy and remind the user to
+  re-run `install.ps1`. When only the global `~/.kiro` copy is available, edit it AND record a
+  "needs sync-back to repo" flag in your memory file — otherwise the next `install.ps1` would
+  silently overwrite the learned change.
 
 ## 6. Skills usage & staleness
 
@@ -112,7 +133,11 @@ Skills (workspace `.kiro/skills/` and global `~/.kiro/skills/`) are context, not
   re-walk every pointer against the current codebase, re-check the flow, fix or flag
   mismatches, and only then update the stamp.
 - New skills, retrofits, and updates all follow the `skill-creator` skill — never invent your
-  own skill format.
+  own skill format. The `skill-manager` agent owns skill work; other agents suggest rather than
+  author, unless the user asks them directly.
+- KB→skills flow: when an investigation, review, or answer uncovers reusable domain knowledge —
+  a recurring gotcha, a non-obvious flow — suggest capturing it via `skill-manager` (extend an
+  existing skill or create one). Don't let it die in a single note.
 
 ## 7. Output hygiene
 

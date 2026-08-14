@@ -26,9 +26,11 @@ over the global one.
    `Verified as of: <YYYY-MM-DD> against <branch/commit>`.
 5. **One skill, one domain.** Extend an existing skill rather than creating an overlapping one.
 
-To create, retrofit, or revalidate a skill, just ask any agent — the `skill-creator` skill
-carries the full method, template, retrofit checklist, and revalidation workflow. Existing
-AI-generated skills you already have: drop them in, then ask an agent to "retrofit skill <name>
-using skill-creator".
+The **`skill-manager` agent** owns skill work (`kiro-cli chat --agent skill-manager`):
+"Create a skill for <functionality>, focus on <areas>" (default), "Extend skill <name> with
+<new area>", "Retrofit skill <name>", "Audit all skills" (batch conformance report over both
+locations), and "Revalidate skill <name>" (re-walks every pointer against live code). The
+`skill-creator` skill carries the full method, template, and checklists. Existing AI-generated
+skills you already have: drop them in, run "Audit all skills", and approve the retrofits.
 
 `ado-assessment/` is a working example of the format.

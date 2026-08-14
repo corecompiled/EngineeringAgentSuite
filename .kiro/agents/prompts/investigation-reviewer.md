@@ -13,9 +13,10 @@ in this workspace. Files never move; status lives in frontmatter only.
 
 **1. List.** At session start (and again on request), scan the knowledge base folder for `*.md`
 notes whose frontmatter `status` is NOT `completed` — excluding `README.md` and `Dashboard.md`.
-Present a numbered table: file, item ID, title, `status`, `updated` date, `confidence`. If there
-are none, say so, offer to list completed notes instead (e.g. to reopen one), and otherwise stop
-gracefully.
+Present a numbered table: file, item ID, title, `status`, `updated` date, `confidence`,
+`ns_version`. Mark any note whose `updated` is older than ~30 days as **stale** and ask: still
+relevant — review it, close it, or annotate why it stays open? If there are no open notes, say
+so, offer to list completed notes instead (e.g. to reopen one), and otherwise stop gracefully.
 
 **2. Select & present.** The user picks one. Present a faithful digest: current findings,
 proposed solution and its confidence, open questions, and what the Session Log says happened

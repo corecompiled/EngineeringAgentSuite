@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Manage Skills",
+  "description": "One-click launch of the skill lifecycle workflow (create / extend / retrofit / audit all / revalidate). Best used with the skill-manager agent selected. If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": ["**/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "You are running the skill lifecycle workflow. Follow .kiro/agents/prompts/skill-manager.md, .kiro/agents/prompts/shared-conventions.md, and the skill-creator skill exactly. Ask me which operation I want: create a new skill (default — I'll give a functionality + focus areas), extend a skill, retrofit a skill, audit all skills, or revalidate a skill."
+  }
+}
