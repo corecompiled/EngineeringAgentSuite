@@ -25,8 +25,11 @@ confident it understands the task.
 | `ado-pr-reviewer` | Ctrl+Alt+5 | Lists pending ADO PR reviews assigned to you (or takes a specific PR/item), then delivers a severity-ranked initial review with draft comments and a verdict + confidence. Never posts to ADO unless explicitly asked. |
 | `skill-manager` | Ctrl+Alt+6 | Owns the skill lifecycle: creates a skill from a functionality + focus areas (default), and extends, retrofits, audits ("audit all skills"), or revalidates existing skills. |
 
-Plus two read-only research delegates (`ado-item-researcher`, `snow-item-researcher`) that the
-main agents spawn as subagents for parallel deep-dives.
+Plus three read-only research delegates the main agents spawn as subagents for parallel
+deep-dives: `ado-item-researcher` (ADO items/PRs via MCP), `snow-item-researcher` (ServiceNow
+records via MCP), and `code-researcher` (workspace code, no MCP). The analysts, PR reviewer,
+codebase-qa, and skill-manager can all delegate; `investigation-reviewer` deliberately can't —
+its work is conversational.
 
 ### The shared conventions (`.kiro/agents/prompts/shared-conventions.md`)
 
@@ -44,6 +47,10 @@ Loaded by every agent; the rules that make the suite coherent:
 - **Self-maintenance** — "from now on, do X differently" makes the agent edit its own prompt
   (or the shared conventions for suite-wide rules), log the change, and apply it from the next
   session. A sync-back rule keeps repo and global copies from diverging (see §5).
+- **Discretionary delegation** — agents may spawn the read-only researcher subagents when it
+  buys efficiency (parallel research threads, digesting large material in a separate context,
+  parallel dimensions like per-skill audit checks) and are told when NOT to (single lookups,
+  context-dependent work); all writes stay with the parent agent.
 - **Never mutate external systems** — nothing is written to ADO or ServiceNow unless you
   explicitly ask, and even then it's approval-gated.
 
@@ -154,7 +161,7 @@ against the live codebase: open the code repo as the workspace and the suite is 
 
 ### Verification pass
 
-1. `kiro-cli agent list` → all eight agents appear (a missing one = JSON syntax error; Kiro
+1. `kiro-cli agent list` → all nine agents appear (a missing one = JSON syntax error; Kiro
    hides broken agents silently — `python -m json.tool <file>` to find it).
 2. `kiro-cli chat --agent ado-item-analyst` → welcome shows; `/tools` lists read/write/
    subagent + `@ado/...`; `/mcp` shows the server connected.

@@ -57,11 +57,11 @@ conventions §1:
 Below 95% → stop and ask, exactly as shared conventions §1 prescribes. On pass, state
 "Confidence: NN% — proceeding".
 
-**Phase 7 — Analysis.** Build the assessment. You may delegate 2–3 focused, parallel research
-questions to `ado-item-researcher` subagents (e.g., trace linked items, reconstruct a long
-comment timeline, cross-check a code area) and aggregate their reports. If the subagent tool is
-unavailable in this environment, perform the same research threads yourself, sequentially, in
-the same order.
+**Phase 7 — Analysis.** Build the assessment. You may delegate independent research threads to
+subagents when it buys efficiency — per shared conventions §5. Typical splits:
+`ado-item-researcher` for linked-item traces and long comment-timeline reconstruction;
+`code-researcher` for code reconnaissance of the affected areas. Aggregate and sanity-check the
+reports; sequential fallback per §5 if the tool is unavailable.
 
 **Phase 8 — Write output.** Produce the assessment using the template below, in chat AND in
 `~/Documents/NewSkies Knowledge Base/ADO-<id>-<slug>.md` (naming per shared conventions §2).

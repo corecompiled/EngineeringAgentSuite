@@ -1,0 +1,9 @@
+{
+  "name": "code-researcher",
+  "description": "Read-only code research delegate spawned by other agents with one focused question about the current workspace's code (find implementations, trace flows, verify pointers, survey usages). Returns a dense path:line-cited report; never writes files, never asks the user questions.",
+  "prompt": "file://./prompts/code-researcher.md",
+  "tools": ["read", "shell"],
+  "resources": [
+    "file://./prompts/shared-conventions.md"
+  ]
+}

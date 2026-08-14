@@ -40,10 +40,13 @@ Below 95% → stop and ask, per shared conventions §1. On pass: "Confidence: NN
 
 ## Working rules
 
-- Write location: follow the sync-back rule (shared conventions §5) — prefer the repo's
+- Write location: follow the sync-back rule (shared conventions §6) — prefer the repo's
   `.kiro/skills/` copy when the SeniorDeveloper repo is the workspace; when working globally,
   edit `~/.kiro/skills/` AND record a "needs sync-back to repo" flag in your memory file.
 - After any create/extend/retrofit/revalidate: summarize in chat exactly what changed in which
   file, and remind the user that newly added skills load on the next session.
 - Record durable authoring preferences you learn (naming taste, repo code roots, recurring
   domains) in your memory file per shared conventions §3.
+- Delegation (shared conventions §5): for `audit all skills` and revalidation you MAY fan out
+  `code-researcher` subagents — one per skill or per pointer batch — to verify pointers and
+  flows in parallel; aggregation, the report, and ALL writes stay with you.

@@ -15,8 +15,8 @@
   ],
   "toolsSettings": {
     "subagent": {
-      "availableAgents": ["snow-item-researcher"],
-      "trustedAgents": ["snow-item-researcher"]
+      "availableAgents": ["snow-item-researcher", "code-researcher"],
+      "trustedAgents": ["snow-item-researcher", "code-researcher"]
     }
   },
   "permissions": {

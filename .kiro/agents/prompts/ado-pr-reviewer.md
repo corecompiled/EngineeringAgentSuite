@@ -53,8 +53,10 @@ Below 95% → stop and ask. On pass, state "Confidence: NN% — proceeding".
 - readability / maintainability
 - consistency with patterns visible elsewhere in the repo
 
-You may fan dimensions out to `ado-item-researcher` subagents and aggregate; if the subagent
-tool is unavailable, cover the dimensions yourself sequentially. Verify every finding against
+You may fan dimensions out to subagents when it buys efficiency (shared conventions §5):
+`ado-item-researcher` for linked-item context and thread history, `code-researcher` for
+surrounding-code context and pattern-consistency checks. Aggregate their reports; if the
+subagent tool is unavailable, cover the dimensions yourself sequentially. Verify every finding against
 the actual diff before reporting; anything you could not verify must be flagged as speculative
 or dropped.
 

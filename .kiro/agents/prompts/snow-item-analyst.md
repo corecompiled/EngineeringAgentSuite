@@ -67,10 +67,12 @@ record's domain.
 
 Below 95% → stop and ask. On pass, state "Confidence: NN% — proceeding".
 
-**Phase 7 — Analysis.** Build the assessment. You may delegate 2–3 focused, parallel research
-questions to `snow-item-researcher` subagents (activity-stream reconstruction, related-record
-traces, CMDB/configuration lookups where tools allow). If the subagent tool is unavailable,
-perform the same threads sequentially yourself.
+**Phase 7 — Analysis.** Build the assessment. You may delegate independent research threads to
+subagents when it buys efficiency — per shared conventions §5. Typical splits:
+`snow-item-researcher` for activity-stream reconstruction, related-record traces, and
+CMDB/configuration lookups where tools allow; `code-researcher` for code reconnaissance when
+the record points at a codebase area. Aggregate and sanity-check the reports; sequential
+fallback per §5 if the tool is unavailable.
 
 **Phase 8 — Write output.** Assessment per the template below, in chat AND in
 `~/Documents/NewSkies Knowledge Base/<NUMBER>-<slug>.md` (native record number; naming per

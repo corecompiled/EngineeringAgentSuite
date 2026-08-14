@@ -15,8 +15,8 @@
   ],
   "toolsSettings": {
     "subagent": {
-      "availableAgents": ["ado-item-researcher"],
-      "trustedAgents": ["ado-item-researcher"]
+      "availableAgents": ["ado-item-researcher", "code-researcher"],
+      "trustedAgents": ["ado-item-researcher", "code-researcher"]
     }
   },
   "permissions": {

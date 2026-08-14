@@ -21,8 +21,8 @@
   ],
   "toolsSettings": {
     "subagent": {
-      "availableAgents": ["ado-item-researcher", "snow-item-researcher"],
-      "trustedAgents": ["ado-item-researcher", "snow-item-researcher"]
+      "availableAgents": ["ado-item-researcher", "snow-item-researcher", "code-researcher"],
+      "trustedAgents": ["ado-item-researcher", "snow-item-researcher", "code-researcher"]
     }
   },
   "permissions": {

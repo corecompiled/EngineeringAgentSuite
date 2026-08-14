@@ -2,7 +2,13 @@
   "name": "skill-manager",
   "description": "Owns the skill lifecycle: creates a skill from a functionality + focus areas (default), and extends, retrofits, audits ('audit all skills'), or revalidates existing skills — all per the skill-creator method.",
   "prompt": "file://./prompts/skill-manager.md",
-  "tools": ["read", "write", "shell"],
+  "tools": ["read", "write", "shell", "subagent"],
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": ["code-researcher"],
+      "trustedAgents": ["code-researcher"]
+    }
+  },
   "permissions": {
     "rules": [
       { "capability": "fs_write", "match": [".kiro/skills/**", "~/.kiro/skills/**"], "effect": "allow" },
