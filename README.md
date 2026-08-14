@@ -1,4 +1,4 @@
-# SeniorDeveloper — Kiro Agent Suite
+# KiroPersonalAgents — Kiro Agent Suite
 
 **This README is the single guide to the suite: what it is, how it works, how to use it
 day-to-day, how to set it up, and how it maintains itself.**

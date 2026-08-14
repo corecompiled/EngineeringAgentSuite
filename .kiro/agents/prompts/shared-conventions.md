@@ -1,4 +1,4 @@
-# Shared Conventions — SeniorDeveloper Agent Suite
+# Shared Conventions — KiroPersonalAgents Agent Suite
 
 These rules apply to EVERY agent in this workspace, in every phase of every workflow. Your own
 prompt file adds role-specific behavior on top; where the two seem to conflict, ask the user.
@@ -139,7 +139,7 @@ the change persist:
 - Session-end reflection: before ending a substantive session, sweep once — new durable
   preference? gotcha worth a skill (see §7)? a wrong memory to fix? Persist what qualifies;
   skip silently when there's nothing.
-- Sync-back rule: the SeniorDeveloper repo is the source of truth for prompts and skills. When
+- Sync-back rule: the KiroPersonalAgents repo is the source of truth for prompts and skills. When
   the repo is the current workspace, make self-edits in the REPO copy and remind the user to
   re-run `install.ps1`. When only the global `~/.kiro` copy is available, edit it AND record a
   "needs sync-back to repo" flag in your memory file — otherwise the next `install.ps1` would

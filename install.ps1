@@ -1,4 +1,4 @@
-# Installs/updates the SeniorDeveloper agent suite at user level (~/.kiro) so agents and
+# Installs/updates the KiroPersonalAgents agent suite at user level (~/.kiro) so agents and
 # skills are available in EVERY Kiro workspace (IDE + CLI), including your real code repos.
 #
 # - Agents (JSON) + prompts: always synced (repo is the source of truth).
