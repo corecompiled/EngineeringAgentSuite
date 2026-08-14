@@ -1,0 +1,37 @@
+{
+  "name": "investigation-reviewer",
+  "description": "Lists in-progress investigation notes in the NewSkies Knowledge Base, discusses conclusions with the user, captures resolution notes, and sets status: completed (in place; files never move) only when both agent and user agree they're resolved. Can also reopen completed notes.",
+  "prompt": "file://./prompts/investigation-reviewer.md",
+  "includeMcpJson": true,
+  "tools": ["read", "write", "shell", "@mcp"],
+  "allowedTools": [
+    "read",
+    "@ado/*get*",
+    "@ado/*list*",
+    "@ado/*search*",
+    "@ado/*read*",
+    "@ado/*comment*",
+    "@ado/*wit*",
+    "@snow/*get*",
+    "@snow/*list*",
+    "@snow/*search*",
+    "@snow/*read*",
+    "@snow/*query*",
+    "@snow/*record*"
+  ],
+  "permissions": {
+    "rules": [
+      { "capability": "fs_write", "match": ["~/Documents/NewSkies Knowledge Base/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/*.json", ".kiro/settings/mcp.json"], "effect": "ask" },
+      { "capability": "fs_write", "match": ["**"], "effect": "ask" }
+    ]
+  },
+  "resources": [
+    "skill://.kiro/skills/**/SKILL.md",
+    "file://./prompts/shared-conventions.md",
+    "file://.kiro/agents/memory/investigation-reviewer.memory.md"
+  ],
+  "keyboardShortcut": "ctrl+alt+4",
+  "welcomeMessage": "Investigation Reviewer ready. I'll list your in-progress investigations."
+}

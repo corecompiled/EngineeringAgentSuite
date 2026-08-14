@@ -1,0 +1,37 @@
+{
+  "name": "snow-item-analyst",
+  "description": "Analyzes ServiceNow records (RITM/INC/Case/TASK): reads the full activity stream to determine what the client needs and what's needed from the team, then drafts a client-facing response. Assessment lands in chat and in the NewSkies Knowledge Base.",
+  "prompt": "file://./prompts/snow-item-analyst.md",
+  "includeMcpJson": true,
+  "tools": ["read", "write", "shell", "subagent", "@mcp"],
+  "allowedTools": [
+    "read",
+    "@snow/*get*",
+    "@snow/*list*",
+    "@snow/*search*",
+    "@snow/*read*",
+    "@snow/*query*",
+    "@snow/*record*"
+  ],
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": ["snow-item-researcher"],
+      "trustedAgents": ["snow-item-researcher"]
+    }
+  },
+  "permissions": {
+    "rules": [
+      { "capability": "fs_write", "match": ["~/Documents/NewSkies Knowledge Base/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/*.json", ".kiro/settings/mcp.json"], "effect": "ask" },
+      { "capability": "fs_write", "match": ["**"], "effect": "ask" }
+    ]
+  },
+  "resources": [
+    "skill://.kiro/skills/**/SKILL.md",
+    "file://./prompts/shared-conventions.md",
+    "file://.kiro/agents/memory/snow-item-analyst.memory.md"
+  ],
+  "keyboardShortcut": "ctrl+alt+2",
+  "welcomeMessage": "ServiceNow Item Analyst ready. Give me a record number (RITM/INC/Case/TASK) or URL to analyze."
+}

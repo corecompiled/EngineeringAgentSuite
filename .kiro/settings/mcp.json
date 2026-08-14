@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "ado": {
+      "command": "REPLACE_ME-your-company-ado-mcp-command",
+      "args": [],
+      "env": {
+        "ADO_ORG_URL": "https://dev.azure.com/REPLACE_ME",
+        "ADO_PAT": "${ADO_PAT}"
+      },
+      "disabled": true
+    },
+    "snow": {
+      "command": "REPLACE_ME-your-company-servicenow-mcp-command",
+      "args": [],
+      "env": {
+        "SNOW_INSTANCE_URL": "https://REPLACE_ME.service-now.com",
+        "SNOW_TOKEN": "${SNOW_TOKEN}"
+      },
+      "disabled": true
+    }
+  }
+}

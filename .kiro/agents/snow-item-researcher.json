@@ -1,0 +1,19 @@
+{
+  "name": "snow-item-researcher",
+  "description": "Read-only research delegate spawned by other agents with one focused question about a ServiceNow record. Returns a dense factual report distinguishing work notes from customer comments; never writes files, never asks the user questions.",
+  "prompt": "file://./prompts/snow-item-researcher.md",
+  "includeMcpJson": true,
+  "tools": ["read", "@mcp"],
+  "allowedTools": [
+    "read",
+    "@snow/*get*",
+    "@snow/*list*",
+    "@snow/*search*",
+    "@snow/*read*",
+    "@snow/*query*",
+    "@snow/*record*"
+  ],
+  "resources": [
+    "file://./prompts/shared-conventions.md"
+  ]
+}

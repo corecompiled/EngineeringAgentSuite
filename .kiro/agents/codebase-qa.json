@@ -1,0 +1,41 @@
+{
+  "name": "codebase-qa",
+  "description": "Answers free-form questions about the codebase from code, skills, investigation notes (in-progress flagged as not final), and its own memory. Clear cited answers, honest uncertainty. Read-only.",
+  "prompt": "file://./prompts/codebase-qa.md",
+  "includeMcpJson": true,
+  "tools": ["read", "shell", "subagent", "@mcp"],
+  "allowedTools": [
+    "read",
+    "@ado/*get*",
+    "@ado/*list*",
+    "@ado/*search*",
+    "@ado/*read*",
+    "@ado/*comment*",
+    "@ado/*wit*",
+    "@snow/*get*",
+    "@snow/*list*",
+    "@snow/*search*",
+    "@snow/*read*",
+    "@snow/*query*",
+    "@snow/*record*"
+  ],
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": ["ado-item-researcher", "snow-item-researcher"],
+      "trustedAgents": ["ado-item-researcher", "snow-item-researcher"]
+    }
+  },
+  "permissions": {
+    "rules": [
+      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": ["**"], "effect": "ask" }
+    ]
+  },
+  "resources": [
+    "skill://.kiro/skills/**/SKILL.md",
+    "file://./prompts/shared-conventions.md",
+    "file://.kiro/agents/memory/codebase-qa.memory.md"
+  ],
+  "keyboardShortcut": "ctrl+alt+3",
+  "welcomeMessage": "Codebase Q&A ready. Ask me anything about this codebase."
+}

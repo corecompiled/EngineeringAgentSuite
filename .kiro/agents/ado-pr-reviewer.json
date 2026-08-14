@@ -1,0 +1,44 @@
+{
+  "name": "ado-pr-reviewer",
+  "description": "Initial code review of Azure DevOps PRs: lists pending reviews assigned to the user (or takes a specific PR/item), then delivers severity-ranked findings with draft comments and a verdict + confidence. Never posts to ADO unless explicitly asked.",
+  "prompt": "file://./prompts/ado-pr-reviewer.md",
+  "includeMcpJson": true,
+  "tools": ["read", "write", "shell", "subagent", "@mcp"],
+  "allowedTools": [
+    "read",
+    "@ado/*get*",
+    "@ado/*list*",
+    "@ado/*search*",
+    "@ado/*read*",
+    "@ado/*comment*",
+    "@ado/*wit*",
+    "@ado/*pull*",
+    "@ado/*pr*",
+    "@ado/*repo*",
+    "@ado/*diff*",
+    "@ado/*thread*",
+    "@ado/*branch*",
+    "@ado/*commit*"
+  ],
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": ["ado-item-researcher"],
+      "trustedAgents": ["ado-item-researcher"]
+    }
+  },
+  "permissions": {
+    "rules": [
+      { "capability": "fs_write", "match": ["~/Documents/NewSkies Knowledge Base/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/*.json", ".kiro/settings/mcp.json"], "effect": "ask" },
+      { "capability": "fs_write", "match": ["**"], "effect": "ask" }
+    ]
+  },
+  "resources": [
+    "skill://.kiro/skills/**/SKILL.md",
+    "file://./prompts/shared-conventions.md",
+    "file://.kiro/agents/memory/ado-pr-reviewer.memory.md"
+  ],
+  "keyboardShortcut": "ctrl+alt+5",
+  "welcomeMessage": "ADO PR Reviewer ready. Give me a PR number or ADO item — or say 'list' and I'll fetch the pending reviews assigned to you."
+}

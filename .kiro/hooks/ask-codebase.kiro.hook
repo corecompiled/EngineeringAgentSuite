@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Ask the Codebase",
+  "description": "One-click launch of the codebase Q&A workflow. Best used with the codebase-qa agent selected. If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": ["**/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "You are running the codebase Q&A workflow. Follow .kiro/agents/prompts/codebase-qa.md and .kiro/agents/prompts/shared-conventions.md exactly — answer from code, skills, investigation notes (flagging in-progress ones as not final), and memory, with citations and honest uncertainty. Start by asking me what I'd like to know about the codebase."
+  }
+}

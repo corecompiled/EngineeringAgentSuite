@@ -1,0 +1,37 @@
+{
+  "name": "ado-item-analyst",
+  "description": "Analyzes Azure DevOps work items end-to-end: fetches item + discussion via the ADO MCP, checks prior investigations, asks clarifying questions when below 95% confidence, and produces a structured assessment in chat and in the NewSkies Knowledge Base.",
+  "prompt": "file://./prompts/ado-item-analyst.md",
+  "includeMcpJson": true,
+  "tools": ["read", "write", "shell", "subagent", "@mcp"],
+  "allowedTools": [
+    "read",
+    "@ado/*get*",
+    "@ado/*list*",
+    "@ado/*search*",
+    "@ado/*read*",
+    "@ado/*comment*",
+    "@ado/*wit*"
+  ],
+  "toolsSettings": {
+    "subagent": {
+      "availableAgents": ["ado-item-researcher"],
+      "trustedAgents": ["ado-item-researcher"]
+    }
+  },
+  "permissions": {
+    "rules": [
+      { "capability": "fs_write", "match": ["~/Documents/NewSkies Knowledge Base/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/*.json", ".kiro/settings/mcp.json"], "effect": "ask" },
+      { "capability": "fs_write", "match": ["**"], "effect": "ask" }
+    ]
+  },
+  "resources": [
+    "skill://.kiro/skills/**/SKILL.md",
+    "file://./prompts/shared-conventions.md",
+    "file://.kiro/agents/memory/ado-item-analyst.memory.md"
+  ],
+  "keyboardShortcut": "ctrl+alt+1",
+  "welcomeMessage": "ADO Item Analyst ready. Give me a work item ID (or URL) to analyze."
+}

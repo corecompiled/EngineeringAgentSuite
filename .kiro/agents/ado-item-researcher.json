@@ -1,0 +1,26 @@
+{
+  "name": "ado-item-researcher",
+  "description": "Read-only research delegate spawned by other agents with one focused question about an ADO work item or PR. Returns a dense factual report; never writes files, never asks the user questions.",
+  "prompt": "file://./prompts/ado-item-researcher.md",
+  "includeMcpJson": true,
+  "tools": ["read", "@mcp"],
+  "allowedTools": [
+    "read",
+    "@ado/*get*",
+    "@ado/*list*",
+    "@ado/*search*",
+    "@ado/*read*",
+    "@ado/*comment*",
+    "@ado/*wit*",
+    "@ado/*pull*",
+    "@ado/*pr*",
+    "@ado/*repo*",
+    "@ado/*diff*",
+    "@ado/*thread*",
+    "@ado/*branch*",
+    "@ado/*commit*"
+  ],
+  "resources": [
+    "file://./prompts/shared-conventions.md"
+  ]
+}

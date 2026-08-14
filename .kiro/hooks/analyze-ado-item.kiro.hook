@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Analyze ADO Item",
+  "description": "One-click launch of the ADO work-item analysis workflow. Best used with the ado-item-analyst agent selected (correct write fences). If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": ["**/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "You are running the ADO work-item analysis workflow. Follow .kiro/agents/prompts/ado-item-analyst.md and .kiro/agents/prompts/shared-conventions.md exactly, including the MCP bootstrap and the 95%-confidence gate. Start by asking me for the ADO work item ID or URL to analyze."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Analyze SNOW Item",
+  "description": "One-click launch of the ServiceNow record analysis workflow (RITM/INC/Case/TASK), ending with a client-facing response draft. Best used with the snow-item-analyst agent selected. If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": ["**/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "You are running the ServiceNow record analysis workflow. Follow .kiro/agents/prompts/snow-item-analyst.md and .kiro/agents/prompts/shared-conventions.md exactly, including the MCP bootstrap, the 95%-confidence gate, and the client-facing response draft at the end. Start by asking me for the ServiceNow record number (RITM/INC/Case/TASK) or URL."
+  }
+}

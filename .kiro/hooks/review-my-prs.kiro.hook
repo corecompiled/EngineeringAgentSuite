@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Review My PRs",
+  "description": "One-click launch of the ADO PR review workflow: lists pending reviews assigned to me, or takes a specific PR/item. Best used with the ado-pr-reviewer agent selected. If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": ["**/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "You are running the ADO PR review workflow. Follow .kiro/agents/prompts/ado-pr-reviewer.md and .kiro/agents/prompts/shared-conventions.md exactly, including the MCP bootstrap (ADO identity from memory), the 95%-confidence gate, and the never-post-to-ADO rule. Offer me both paths: name a specific PR number or ADO item, or default to listing the pending PR reviews assigned to me."
+  }
+}
