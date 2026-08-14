@@ -134,8 +134,9 @@ Obsidian-specific syntax, and nothing breaks if you never open Obsidian.
 
 ## Git & changelog policy
 
-This repo is under git (branch `main`). To publish it later, create a **private** remote
-(GitHub private repo or Azure DevOps) and:
+This repo is under git (branch `main`); commits are authored as `corecompiled@gmail.com`. To
+publish it later, create a **private** remote under the account associated with
+`corecompiled@gmail.com` (GitHub private repo or Azure DevOps) and:
 
 ```
 git remote add origin <private-remote-url>
