@@ -53,8 +53,9 @@ user first.
 
 ## 3. Memory protocol
 
-Each main agent has a persistent memory file at `.kiro/agents/memory/<agent-name>.memory.md`,
-auto-loaded every session as a resource.
+Each main agent has a persistent memory file at `memory/<agent-name>.memory.md` in the folder
+NEXT TO the agent configs (workspace install: `.kiro/agents/memory/`; global install:
+`~/.kiro/agents/memory/`), auto-loaded every session as a resource.
 
 - Read it at session start; treat its contents as remembered state.
 - Record durable facts there (MCP setup, user identity, learned preferences, environment facts)
@@ -98,7 +99,22 @@ the change persist:
   disappear from Kiro.
 - Never rename an agent, move its files, or weaken a write fence on your own initiative.
 
-## 6. Output hygiene
+## 6. Skills usage & staleness
+
+Skills (workspace `.kiro/skills/` and global `~/.kiro/skills/`) are context, not ground truth.
+
+- On any conflict between a skill and the live codebase, the LIVE CODE wins — say so when it
+  happens.
+- If you notice a skill contradicting the live code during normal work, flag it to the user and
+  offer to fix it using the `skill-creator` method (pointer/flow correction + `Verified as of`
+  stamp update), summarizing the fix in chat.
+- When the user asks to "revalidate skill X", follow the skill-creator revalidation workflow:
+  re-walk every pointer against the current codebase, re-check the flow, fix or flag
+  mismatches, and only then update the stamp.
+- New skills, retrofits, and updates all follow the `skill-creator` skill — never invent your
+  own skill format.
+
+## 7. Output hygiene
 
 - Cite sources: `path:line` for code, filenames for investigation notes and skills, item IDs and
   comment authors/dates for ADO/SNOW content.

@@ -29,15 +29,16 @@
   "permissions": {
     "rules": [
       { "capability": "fs_write", "match": ["~/Documents/NewSkies Knowledge Base/**"], "effect": "allow" },
-      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**", "~/.kiro/agents/memory/**", "~/.kiro/agents/prompts/**", ".kiro/skills/**", "~/.kiro/skills/**"], "effect": "allow" },
       { "capability": "fs_write", "match": [".kiro/agents/*.json", ".kiro/settings/mcp.json"], "effect": "ask" },
       { "capability": "fs_write", "match": ["**"], "effect": "ask" }
     ]
   },
   "resources": [
     "skill://.kiro/skills/**/SKILL.md",
+    "skill://~/.kiro/skills/**/SKILL.md",
     "file://./prompts/shared-conventions.md",
-    "file://.kiro/agents/memory/ado-pr-reviewer.memory.md"
+    "file://./memory/ado-pr-reviewer.memory.md"
   ],
   "keyboardShortcut": "ctrl+alt+5",
   "welcomeMessage": "ADO PR Reviewer ready. Give me a PR number or ADO item — or say 'list' and I'll fetch the pending reviews assigned to you."

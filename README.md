@@ -49,6 +49,23 @@ hooks in the Agent Hooks panel ("Analyze ADO Item", "Analyze SNOW Item", "Ask th
 if your Kiro version doesn't show them in the panel, recreate them there with the prompt text
 inside each hook file — and select the matching agent first so the right write fences apply.
 
+## Install globally (recommended)
+
+Run `install.ps1` from this repo. It syncs the agents (+ prompts) to `~/.kiro/agents/` and the
+skills to `~/.kiro/skills/`, which Kiro treats as **user-level**: they become available in
+EVERY workspace you open, IDE and CLI — including your real code repos. That's what lets
+`codebase-qa` and the skills work against the live codebase: open the code repo as the
+workspace, and the suite is just there.
+
+- Memory files are only seeded if missing — re-running the script never overwrites what the
+  agents have learned.
+- Workspace-level copies (a `.kiro` folder inside whatever repo you open) override global ones
+  on name conflict, so team repos stay unaffected.
+- Note: "agents and skills are per-project only" is outdated — current Kiro supports
+  `~/.kiro/agents/` and `~/.kiro/skills/` (see kiro.dev docs on custom agents and skills).
+- Hooks are the exception: they stay workspace-level. Copy `.kiro/hooks/` into a specific
+  repo's `.kiro/` if you want the one-click buttons there.
+
 ## Setting up on a new PC
 
 1. Install Kiro (IDE and/or CLI) and sign in.
@@ -66,8 +83,15 @@ inside each hook file — and select the matching agent first so the right write
    - Set credentials as environment variables (`ADO_PAT`, `SNOW_TOKEN`); never put secrets in
      the file. If your MCP servers are defined globally in `~/.kiro/settings/mcp.json` instead,
      that's fine — the agents' first-run bootstrap will find them and remember where.
-4. Drop your company skills into `.kiro/skills/` (see `.kiro/skills/README.md`).
-5. Run the verification pass below.
+4. Run `install.ps1` (global install, recommended — see above).
+5. Skills: drop your existing AI-generated codebase skills into `~/.kiro/skills/` (or
+   `.kiro/skills/` here and re-run `install.ps1`), then ask any agent to
+   "retrofit skill <name> using skill-creator" — it rewrites the description into a routing
+   trigger, converts snippets to pointers, and adds a `Verified as of` stamp. New skills:
+   just ask an agent to "create a skill for <functionality>, focus on <code areas>" — the
+   `skill-creator` skill enforces the method. "Revalidate skill <name>" re-checks every
+   pointer against the live code. See `.kiro/skills/README.md` for the authoring rules.
+6. Run the verification pass below.
 
 ## Verification pass
 

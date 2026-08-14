@@ -22,15 +22,16 @@
   "permissions": {
     "rules": [
       { "capability": "fs_write", "match": ["~/Documents/NewSkies Knowledge Base/**"], "effect": "allow" },
-      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**", "~/.kiro/agents/memory/**", "~/.kiro/agents/prompts/**", ".kiro/skills/**", "~/.kiro/skills/**"], "effect": "allow" },
       { "capability": "fs_write", "match": [".kiro/agents/*.json", ".kiro/settings/mcp.json"], "effect": "ask" },
       { "capability": "fs_write", "match": ["**"], "effect": "ask" }
     ]
   },
   "resources": [
     "skill://.kiro/skills/**/SKILL.md",
+    "skill://~/.kiro/skills/**/SKILL.md",
     "file://./prompts/shared-conventions.md",
-    "file://.kiro/agents/memory/investigation-reviewer.memory.md"
+    "file://./memory/investigation-reviewer.memory.md"
   ],
   "keyboardShortcut": "ctrl+alt+4",
   "welcomeMessage": "Investigation Reviewer ready. I'll list your in-progress investigations."
