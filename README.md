@@ -52,8 +52,8 @@ inside each hook file — and select the matching agent first so the right write
 ## Setting up on a new PC
 
 1. Install Kiro (IDE and/or CLI) and sign in.
-2. Clone this repo (once a private remote exists) or copy the whole folder; open it as the
-   workspace.
+2. Clone this repo — `git clone https://github.com/corecompiled/KiroPersonalAgents.git`
+   (once it has been pushed) — or copy the whole folder; open it as the workspace.
 2b. Knowledge base: create `~/Documents/NewSkies Knowledge Base` on the new PC (or copy the
    existing one if you want its notes; or just let the agents create it on first use — the
    folder's README/Dashboard come along only if you copy).
@@ -134,14 +134,24 @@ Obsidian-specific syntax, and nothing breaks if you never open Obsidian.
 
 ## Git & changelog policy
 
-This repo is under git (branch `main`); commits are authored as `corecompiled@gmail.com`. To
-publish it later, create a **private** remote under the account associated with
-`corecompiled@gmail.com` (GitHub private repo or Azure DevOps) and:
+This repo is under git (branch `main`); commits are authored as `corecompiled@gmail.com`. The
+remote is already configured: **https://github.com/corecompiled/KiroPersonalAgents** (keep it
+**private**). Nothing has been pushed yet.
 
-```
-git remote add origin <private-remote-url>
-git push -u origin main
-```
+### Publish checklist (when ready)
+
+1. Push: `git push -u origin main` (authenticate as the `corecompiled` account).
+2. Update the GitHub **About** section so the repo is self-describing:
+   - Description: `Personal Kiro agent suite — ADO work-item analysis, ServiceNow triage with
+     client-facing drafts, PR reviews, codebase Q&A, and a shared investigations knowledge base.`
+   - Topics: `kiro`, `ai-agents`, `azure-devops`, `servicenow`, `mcp`, `code-review`,
+     `knowledge-base`
+   - Or in one command with the GitHub CLI:
+     ```
+     gh repo edit corecompiled/KiroPersonalAgents --description "Personal Kiro agent suite - ADO work-item analysis, ServiceNow triage with client-facing drafts, PR reviews, codebase Q&A, and a shared investigations knowledge base." --add-topic kiro --add-topic ai-agents --add-topic azure-devops --add-topic servicenow --add-topic mcp --add-topic code-review --add-topic knowledge-base
+     ```
+3. Confirm repo visibility is Private (`gh repo view corecompiled/KiroPersonalAgents --json visibility`).
+4. This README renders as the repo front page — keep it current when the suite changes.
 
 Changelog policy: git history is the changelog for everything in this repo (prompts, agents,
 skills, hooks) — no per-file changelog sections. Agent behavior changes are additionally logged
