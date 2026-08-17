@@ -12,7 +12,7 @@ Persistent state for this agent. Loaded every session. Update per shared convent
 
 ## Sync-Back Flags
 
-(skills edited in ~/.kiro/skills that still need syncing back to the KiroPersonalAgents repo)
+(skills edited in ~/.kiro/skills that still need syncing back to the EngineeringAgentSuite repo)
 
 ## Changelog
 

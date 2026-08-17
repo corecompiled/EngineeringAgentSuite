@@ -37,11 +37,6 @@ if (-not (Test-Path $invDir)) {
     Report 'WARN' "investigations/ missing (agents create it on first write - fine if the vault is new)"
 }
 
-$oldVault = Join-Path $HOME 'Documents\NewSkies Knowledge Base'
-if (Test-Path $oldVault) {
-    Report 'WARN' "old vault folder still present: $oldVault (migration leftover - merge or remove)"
-}
-
 # Stray notes at vault root (README/Dashboard belong there; notes do not).
 Get-ChildItem -Path $KnowledgeBasePath -File -Filter *.md | ForEach-Object {
     if ($_.Name -notin @('README.md', 'Dashboard.md')) {

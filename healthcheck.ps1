@@ -1,4 +1,4 @@
-# Deterministic health check for the KiroPersonalAgents agent suite.
+# Deterministic health check for the EngineeringAgentSuite agent suite.
 # Complements the agent-side habits (skills audit, memory pruning, revalidation):
 #   1. Lints every agent JSON and hook file.
 #   2. Verifies every prompt/resource path referenced by the agent JSONs resolves.

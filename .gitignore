@@ -9,6 +9,14 @@ Thumbs.db
 desktop.ini
 .DS_Store
 
+# Build/IDE artifacts
+bin/
+obj/
+.vs/
+*.user
+.claude/settings.local.json
+*.log
+
 # NOTE: investigation notes live OUTSIDE this repo, in ~/Documents/Engineering Knowledge Base/investigations.
 # NOTE: .kiro/settings/mcp.json ships as a placeholder; replace values on the work PC
 #       but keep secrets in environment variables (${ADO_PAT} etc.), not in the file.

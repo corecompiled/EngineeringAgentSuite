@@ -1,4 +1,4 @@
-# Shared Conventions — KiroPersonalAgents Agent Suite
+# Shared Conventions — EngineeringAgentSuite Agent Suite
 
 These rules apply to EVERY agent in this workspace, in every phase of every workflow. Your own
 prompt file adds role-specific behavior on top; where the two seem to conflict, ask the user.
@@ -61,14 +61,22 @@ The vault doubles as an Obsidian vault and is shared across knowledge systems. I
   (`created`/`updated`), never in the filename. Legacy `ADO-<id>-*` notes keep their filenames
   (never renamed); when searching for prior notes, match on the item ID, not the prefix.
 - Frontmatter contract: `item`, `title`, `type`, `state` (source-system state), `created`,
-  `updated`, `status`, `confidence`, `ns_version` (quoted, e.g. `"NS 4.10"`; omit or `""` when
-  unknown).
-- NS version extraction: if a NewSkies version ("NS 4.8", "4.10", "NewSkies 4.11", …) is
-  mentioned ANYWHERE — item fields, description, comments/work notes, linked items, or by the
-  user — record it in `ns_version` (normalized to `"NS <major>.<minor>"`). If multiple versions
-  are in play, record the one the investigation targets and note the others in the body. When
-  touching an existing note that lacks `ns_version`, backfill it if the version is
-  discoverable.
+  `updated`, `status`, `confidence`, `product_version` (quoted, per the recorded scheme below;
+  omit or `""` when unknown).
+- Product-version scheme (bootstrap on first use): the product's version label and formats are
+  NOT hardcoded — they are recorded per environment. When you need to record a product version
+  and no scheme is on record: first CHECK the sibling memory files in your memory folder for a
+  `## Product Version Scheme` section another agent already recorded (copy it into your own
+  memory if found); otherwise ASK the user (1) what label versions should be recorded under
+  (e.g. "NS") and (2) example forms the version appears in in the wild (e.g. "NS 4.8", a bare
+  "4.10", "<ProductName> 4.11"), then record both in your memory file under
+  `## Product Version Scheme` (per §3).
+- Product-version extraction: if a version matching the recorded scheme is mentioned
+  ANYWHERE — item fields, description, comments/work notes, linked items, or by the user —
+  record it in `product_version`, normalized to `"<Label> <major>.<minor>"`. If multiple
+  versions are in play, record the one the investigation targets and note the others in the
+  body. When touching an existing note that lacks `product_version`, backfill it if the
+  version is discoverable.
 - Write notes in plain markdown + YAML frontmatter only — no Obsidian-specific syntax (no
   wikilinks); standard relative markdown links are fine.
 - Living-file rule: one note per item, updated in place. Bump `updated:`, append a Session Log
@@ -155,7 +163,7 @@ the change persist:
 - Session-end reflection: before ending a substantive session, sweep once — new durable
   preference? gotcha worth a skill (see §7)? a wrong memory to fix? Persist what qualifies;
   skip silently when there's nothing.
-- Sync-back rule: the KiroPersonalAgents repo is the source of truth for prompts and skills. When
+- Sync-back rule: the EngineeringAgentSuite repo is the source of truth for prompts and skills. When
   the repo is the current workspace, make self-edits in the REPO copy and remind the user to
   re-run `install.ps1`. When only the global `~/.kiro` copy is available, edit it AND record a
   "needs sync-back to repo" flag in your memory file — otherwise the next `install.ps1` would

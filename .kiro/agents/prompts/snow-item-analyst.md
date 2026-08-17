@@ -109,7 +109,7 @@ created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
 status: in-progress   # in-progress | blocked-on-questions | completed
 confidence: <NN>%
-ns_version: "NS <x.y>"   # if mentioned anywhere in the record/activity stream; omit if unknown
+product_version: "<Label> <x.y>"   # per the recorded scheme (shared conventions §2 bootstrap); omit if unknown
 ---
 
 # <NUMBER> — <short description>

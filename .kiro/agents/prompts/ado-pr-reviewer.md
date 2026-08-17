@@ -78,7 +78,7 @@ invalidated ones (recording why in the note), refine draft comments.
 `~/Documents/Engineering Knowledge Base/investigations/PR-<id>-<slug>.md` — same
 living-file rules as shared conventions §2. Frontmatter: `item: PR-<id>`, `title`, `type: PR`,
 repo, author, `state` (PR status), `created`/`updated`, `status`, `confidence`, verdict, and
-`ns_version` (per shared conventions §2, e.g. from the target branch or linked items).
+`product_version` (per shared conventions §2, e.g. from the target branch or linked items).
 Sections: 1. PR Summary & Intent, 2. Findings (the severity-ordered list with draft comments),
 3. Verdict & Confidence, 4. Not Reviewed / Caveats, 5. Discussion Outcomes, Session Log.
 Follow-up sessions on the same PR update the same file and start by re-checking what changed

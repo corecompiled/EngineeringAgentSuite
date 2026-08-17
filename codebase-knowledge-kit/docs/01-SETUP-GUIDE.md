@@ -134,7 +134,7 @@ Now the agent writes the architecture docs, module by module, using the template
 
 Commit the workspace pieces — `docs/api-surface/`, `docs/templates/`, `.kiro/steering/`, `.kiro/hooks/`, `.kiro/agents/`, `prompts/`, and `tools/` — to whichever repo hosts your umbrella content (or a dedicated repo if the umbrella folder itself isn't one). `mcp.json` contains no secrets as shipped — but double-check before committing if you added tokens; prefer env vars for anything sensitive.
 
-The **knowledge vault sits outside git**: give it its own backup/sync (making the vault folder its own git repo works well — the KiroPersonalAgents suite repo ships `Backup-KnowledgeBase.ps1`, which does exactly this: init + snapshot commits). Never commit vault content into a work repo.
+The **knowledge vault sits outside git**: give it its own backup/sync (making the vault folder its own git repo works well — the EngineeringAgentSuite repo ships `Backup-KnowledgeBase.ps1`, which does exactly this: init + snapshot commits). Never commit vault content into a work repo.
 
 Done. Move to `03-DAILY-USAGE.md`, and see `05-USING-IN-KIRO.md` for how all of this
 surfaces inside the Kiro panel (steering, MCP, hooks, and the codebase-analyst agent).

@@ -1,4 +1,4 @@
-# KiroPersonalAgents — Kiro Agent Suite
+# EngineeringAgentSuite — Kiro Agent Suite
 
 **This README is the single guide to the suite: what it is, how it works, how to use it
 day-to-day, how to set it up, and how it maintains itself.**
@@ -69,15 +69,17 @@ Loaded by every agent; the rules that make the suite coherent:
   `Feature-<id>-<slug>.md` (also Task/Epic; agents ask if the type doesn't map cleanly) —
   plus `PR-<id>-<slug>.md` for pull requests and native ServiceNow numbers
   (`INC0012345-<slug>.md`). One living note per item, updated in place across sessions.
-- Frontmatter includes `ns_version` (e.g. `"NS 4.10"`) — extracted automatically whenever a
-  NewSkies version is mentioned anywhere in the item, discussion, or by you — so the dashboard
-  shows which NS version each investigation targeted.
+- Frontmatter includes `product_version` — extracted automatically whenever a product version
+  is mentioned anywhere in the item, discussion, or by you — so the dashboard shows which
+  version each investigation targeted. The version label and formats aren't hardcoded: on
+  first use an agent asks what to call the versioning and what forms it appears in, records
+  the scheme in memory, and other agents copy it from there (shared conventions §2).
 - **The location is provisional.** Claude/agents must explicitly ASK before ever changing it;
   changing it means updating shared-conventions.md, all prompts, agent JSON permission rules,
   the review hook, and this README together — never piecemeal.
 - **Obsidian (optional):** open the whole vault folder in Obsidian; with the Dataview
   community plugin, `Dashboard.md` (at vault root) renders live tables (open / blocked /
-  completed, with NS Version columns). Everything stays plain markdown; nothing breaks without
+  completed, with version columns). Everything stays plain markdown; nothing breaks without
   Obsidian.
 
 ### Skills (`.kiro/skills/` + `~/.kiro/skills/`)
@@ -153,15 +155,15 @@ against the live codebase: open the code repo as the workspace and the suite is 
 ### New PC checklist
 
 1. Install Kiro (IDE and/or CLI) and sign in.
-2. Clone this repo — `git clone https://github.com/corecompiled/KiroPersonalAgents.git` (once
+2. Clone this repo — `git clone https://github.com/corecompiled/EngineeringAgentSuite.git` (once
    pushed) — or copy the folder.
 3. Knowledge base: create `~/Documents/Engineering Knowledge Base` (or copy the existing one
    to keep its notes/README/Dashboard; agents create a bare folder on first use otherwise).
-   **If migrating an existing "NewSkies Knowledge Base"** (the vault's former name), rename it
+   **If migrating a vault that used the previous folder name**, rename it
    and move the notes into the `investigations/` subfolder:
 
    ```powershell
-   Rename-Item "$HOME\Documents\NewSkies Knowledge Base" "Engineering Knowledge Base"
+   Rename-Item "$HOME\Documents\<your old vault folder>" "Engineering Knowledge Base"
    $kb = "$HOME\Documents\Engineering Knowledge Base"
    New-Item -ItemType Directory -Force "$kb\investigations","$kb\architecture","$kb\knowledge"
    Get-ChildItem "$kb\*.md" | Where-Object Name -notin 'README.md','Dashboard.md' |
@@ -207,7 +209,7 @@ against the live codebase: open the code repo as the workspace and the suite is 
    draft section in place, nothing posted to ServiceNow.
 7. `codebase-qa` → cited answers (`path:line`, note filenames), in-progress notes flagged "not
    final", honest "can't determine" on unanswerables.
-8. `investigation-reviewer` → lists open notes with NS version, flags stale (30+ days) ones,
+8. `investigation-reviewer` → lists open notes with product version, flags stale (30+ days) ones,
    states its own resolved/not-resolved view, flips status only on mutual agreement, can
    reopen.
 9. `ado-pr-reviewer` → remembers your ADO identity from first run; lists pending reviews; a
@@ -256,21 +258,27 @@ against the live codebase: open the code repo as the workspace and the suite is 
 
 ## 5. Git & publishing
 
-Branch `main`; commits authored as `corecompiled@gmail.com`. Remote is configured:
-**https://github.com/corecompiled/KiroPersonalAgents** (keep it **private**). Nothing has been
-pushed yet.
+Branch `main`; commits authored as `corecompiled@gmail.com`. Two remotes, both pushed
+routinely:
 
-Publish checklist (when ready):
+- `origin` — **https://github.com/corecompiled/EngineeringAgentSuite** (**public**).
+- `forgejo` — `http://srv1698359.ts.corecompiled.cloud:3000/patron/EngineeringAgentSuite.git`
+  (self-hosted, **private**).
 
-1. `git push -u origin main` (authenticated as the `corecompiled` account).
-2. Update the GitHub **About**:
-   - Description: `Personal Kiro agent suite — ADO work-item analysis, ServiceNow triage with
-     client-facing drafts, PR reviews, codebase Q&A, and a shared investigations knowledge base.`
-   - Topics: `kiro`, `ai-agents`, `azure-devops`, `servicenow`, `mcp`, `code-review`,
-     `knowledge-base`
-   - One command:
-     ```
-     gh repo edit corecompiled/KiroPersonalAgents --description "Personal Kiro agent suite - ADO work-item analysis, ServiceNow triage with client-facing drafts, PR reviews, codebase Q&A, and a shared investigations knowledge base." --add-topic kiro --add-topic ai-agents --add-topic azure-devops --add-topic servicenow --add-topic mcp --add-topic code-review --add-topic knowledge-base
-     ```
-3. Confirm visibility is Private: `gh repo view corecompiled/KiroPersonalAgents --json visibility`.
-4. This README is the repo front page — keep it current as the suite evolves.
+Repo description (both hosts' About/description field):
+
+> Personal engineering agent suite — Kiro agents for ADO work-item analysis, ServiceNow triage
+> with client-facing drafts, PR reviews, codebase Q&A, plus a portable codebase-knowledge kit
+> and a shared Engineering Knowledge Base.
+
+Topics (GitHub): `kiro`, `ai-agents`, `azure-devops`, `servicenow`, `mcp`, `code-review`,
+`knowledge-base` — one command, once `gh` is installed:
+
+```
+gh repo edit corecompiled/EngineeringAgentSuite --description "Personal engineering agent suite - Kiro agents for ADO work-item analysis, ServiceNow triage with client-facing drafts, PR reviews, codebase Q&A, plus a portable codebase-knowledge kit and a shared Engineering Knowledge Base." --add-topic kiro --add-topic ai-agents --add-topic azure-devops --add-topic servicenow --add-topic mcp --add-topic code-review --add-topic knowledge-base
+```
+
+Because the GitHub copy is public: no credentials, customer data, product names, or company
+identifiers belong in this repo — the knowledge vault (which holds the actual investigations)
+lives outside the repo and is never pushed to GitHub. This README is the repo front page —
+keep it current as the suite evolves.

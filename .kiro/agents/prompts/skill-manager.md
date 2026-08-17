@@ -41,7 +41,7 @@ Below 95% → stop and ask, per shared conventions §1. On pass: "Confidence: NN
 ## Working rules
 
 - Write location: follow the sync-back rule (shared conventions §6) — prefer the repo's
-  `.kiro/skills/` copy when the KiroPersonalAgents repo is the workspace; when working globally,
+  `.kiro/skills/` copy when the EngineeringAgentSuite repo is the workspace; when working globally,
   edit `~/.kiro/skills/` AND record a "needs sync-back to repo" flag in your memory file.
 - After any create/extend/retrofit/revalidate: summarize in chat exactly what changed in which
   file, and remind the user that newly added skills load on the next session.
