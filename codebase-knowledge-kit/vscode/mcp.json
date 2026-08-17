@@ -1,0 +1,25 @@
+{
+  "inputs": [
+    {
+      "id": "ado_org",
+      "type": "promptString",
+      "description": "Azure DevOps organization name (start this server only after your company policy check)"
+    }
+  ],
+  "servers": {
+    "serena": {
+      "type": "stdio",
+      "command": "serena",
+      "args": [
+        "start-mcp-server",
+        "--context", "ide-assistant",
+        "--project", "REPLACE_WITH_ABSOLUTE_WORKSPACE_PATH"
+      ]
+    },
+    "azure-devops": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@azure-devops/mcp", "${input:ado_org}", "-d", "core", "work", "work-items"]
+    }
+  }
+}

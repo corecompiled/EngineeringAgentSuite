@@ -4,7 +4,7 @@
 day-to-day, how to set it up, and how it maintains itself.**
 
 A portable suite of Kiro (IDE + CLI) agents for day-to-day senior-developer work. Every agent
-shares one knowledge base (`~/Documents/NewSkies Knowledge Base`), one skills library, and one
+shares one knowledge base (`~/Documents/Engineering Knowledge Base`), one skills library, and one
 conventions document. The suite is deliberately self-sustaining: agents remember what they
 learn, update their own instructions when you change how you want them to work, and never
 proceed on shaky understanding — every agent stops and asks questions unless it is ≥95%
@@ -54,12 +54,17 @@ Loaded by every agent; the rules that make the suite coherent:
 - **Never mutate external systems** — nothing is written to ADO or ServiceNow unless you
   explicitly ask, and even then it's approval-gated.
 
-### The knowledge base (`~/Documents/NewSkies Knowledge Base`)
+### The knowledge base (`~/Documents/Engineering Knowledge Base`)
 
-- One folder, ADR-style: files never move or get renamed; a note's state is its frontmatter
-  `status` (`in-progress | blocked-on-questions | completed`). Close-out and reopen are status
-  flips with a Session Log line. `completed` notes are settled, citable knowledge; everything
-  else is cited as "not final".
+- One unified vault with an `investigations/` subfolder where every suite agent writes its
+  notes. Inside `investigations/` the notes are flat and ADR-style: files never move or get
+  renamed; a note's state is its frontmatter `status`
+  (`in-progress | blocked-on-questions | completed`). Close-out and reopen are status flips
+  with a Session Log line. `completed` notes are settled, citable knowledge; everything else is
+  cited as "not final".
+- The vault is shared with the `codebase-knowledge-kit` mechanism on the work machine, which
+  maintains sibling `architecture/` and `knowledge/` subfolders (module/system docs and
+  stamped findings). Suite agents may read those but only ever write in `investigations/`.
 - Naming: `ADO-<id>-<slug>.md`, `PR-<id>-<slug>.md`, native ServiceNow numbers
   (`INC0012345-<slug>.md`). One living note per item, updated in place across sessions.
 - Frontmatter includes `ns_version` (e.g. `"NS 4.10"`) — extracted automatically whenever a
@@ -68,9 +73,10 @@ Loaded by every agent; the rules that make the suite coherent:
 - **The location is provisional.** Claude/agents must explicitly ASK before ever changing it;
   changing it means updating shared-conventions.md, all prompts, agent JSON permission rules,
   the review hook, and this README together — never piecemeal.
-- **Obsidian (optional):** open the folder as a vault; with the Dataview community plugin,
-  `Dashboard.md` renders live tables (open / blocked / completed, with NS Version columns).
-  Everything stays plain markdown; nothing breaks without Obsidian.
+- **Obsidian (optional):** open the whole vault folder in Obsidian; with the Dataview
+  community plugin, `Dashboard.md` (at vault root) renders live tables (open / blocked /
+  completed, with NS Version columns). Everything stays plain markdown; nothing breaks without
+  Obsidian.
 
 ### Skills (`.kiro/skills/` + `~/.kiro/skills/`)
 
@@ -145,8 +151,24 @@ against the live codebase: open the code repo as the workspace and the suite is 
 1. Install Kiro (IDE and/or CLI) and sign in.
 2. Clone this repo — `git clone https://github.com/corecompiled/KiroPersonalAgents.git` (once
    pushed) — or copy the folder.
-3. Knowledge base: create `~/Documents/NewSkies Knowledge Base` (or copy the existing one to
-   keep its notes/README/Dashboard; agents create a bare folder on first use otherwise).
+3. Knowledge base: create `~/Documents/Engineering Knowledge Base` (or copy the existing one
+   to keep its notes/README/Dashboard; agents create a bare folder on first use otherwise).
+   **If migrating an existing "NewSkies Knowledge Base"** (the vault's former name), rename it
+   and move the notes into the `investigations/` subfolder:
+
+   ```powershell
+   Rename-Item "$HOME\Documents\NewSkies Knowledge Base" "Engineering Knowledge Base"
+   $kb = "$HOME\Documents\Engineering Knowledge Base"
+   New-Item -ItemType Directory -Force "$kb\investigations","$kb\architecture","$kb\knowledge"
+   Get-ChildItem "$kb\*.md" | Where-Object Name -notin 'README.md','Dashboard.md' |
+       Move-Item -Destination "$kb\investigations"
+   ```
+
+   Then: re-open the renamed folder as the Obsidian vault (`.obsidian/` travels with it, so
+   settings survive); Dataview queries using `FROM ""` keep working (Dataview recurses), but
+   any `WHERE file.folder = ...` filter in `Dashboard.md` must be updated to `investigations`.
+   If agents on the machine had memorized the old path, mention the rename in their first
+   session — they correct stale memory facts in place (shared conventions §3).
 4. Edit `.kiro/settings/mcp.json`: replace the `REPLACE_ME` values for the `ado` and `snow`
    servers (`"type": "http"` + `url` for remote servers); set `"disabled": false`; keep the
    keys named `ado`/`snow` so pre-approved tool patterns match; credentials via env vars
@@ -169,7 +191,7 @@ against the live codebase: open the code repo as the workspace and the suite is 
    restart → it doesn't ask again.
 4. Give a deliberately vague item → it stops at the confidence gate with questions (every
    agent should do this on vague input).
-5. Answer → it writes `~/Documents/NewSkies Knowledge Base/ADO-<id>-<slug>.md`; later updates
+5. Answer → it writes `~/Documents/Engineering Knowledge Base/investigations/ADO-<id>-<slug>.md`; later updates
    edit the same file. (If your Kiro build doesn't match `~/...` permission patterns, each KB
    write asks once — functionally fine.)
 6. `snow-item-analyst` with a real record → work notes vs customer comments distinguished,

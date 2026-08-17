@@ -1,6 +1,6 @@
 {
   "name": "snow-item-analyst",
-  "description": "Analyzes ServiceNow records (RITM/INC/Case/TASK): reads the full activity stream to determine what the client needs and what's needed from the team, then drafts a client-facing response. Assessment lands in chat and in the NewSkies Knowledge Base.",
+  "description": "Analyzes ServiceNow records (RITM/INC/Case/TASK): reads the full activity stream to determine what the client needs and what's needed from the team, then drafts a client-facing response. Assessment lands in chat and in the Engineering Knowledge Base.",
   "prompt": "file://./prompts/snow-item-analyst.md",
   "includeMcpJson": true,
   "tools": ["read", "write", "shell", "subagent", "@mcp"],
@@ -21,7 +21,7 @@
   },
   "permissions": {
     "rules": [
-      { "capability": "fs_write", "match": ["~/Documents/NewSkies Knowledge Base/**"], "effect": "allow" },
+      { "capability": "fs_write", "match": ["~/Documents/Engineering Knowledge Base/investigations/**"], "effect": "allow" },
       { "capability": "fs_write", "match": [".kiro/agents/memory/**", ".kiro/agents/prompts/**", "~/.kiro/agents/memory/**", "~/.kiro/agents/prompts/**", ".kiro/skills/**", "~/.kiro/skills/**"], "effect": "allow" },
       { "capability": "fs_write", "match": [".kiro/agents/*.json", ".kiro/settings/mcp.json"], "effect": "ask" },
       { "capability": "fs_write", "match": ["**"], "effect": "ask" }

@@ -1,0 +1,35 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "csproj-change-api-surface-reminder",
+      "description": "A .csproj was saved, so project references or public surface likely changed. Nudges to re-run ApiSurfaceDumper and review the repo's contract doc.",
+      "trigger": "PostFileSave",
+      "matcher": "\\.csproj$",
+      "action": {
+        "type": "agent",
+        "prompt": "A .csproj file in this workspace was just saved, meaning project references or the public API surface may have changed. In one short paragraph (take no action unless the user confirms), remind the user that docs/api-surface may now be stale and can be refreshed with: dotnet run --project tools/ApiSurfaceDumper -- Everything.sln docs/api-surface — and that the affected repo's contract doc in the knowledge vault's architecture/contracts/ (~/Documents/Engineering Knowledge Base/architecture/contracts/) may deserve a quick review."
+      }
+    },
+    {
+      "name": "knowledge-note-front-matter-guard",
+      "description": "When a new note appears in the knowledge vault's knowledge/ folder, verify its freshness stamp (front matter) is complete and resolvable. LIMITATION: Kiro file-event hooks watch the open workspace, and the vault lives outside it — this hook only fires if the vault folder is attached to the workspace. Primary stamp enforcement is step 1 of prompts/05-save-finding.md plus the freshness checker.",
+      "trigger": "PostFileCreate",
+      "matcher": "knowledge[/\\\\][^/\\\\]*\\.md$",
+      "action": {
+        "type": "agent",
+        "prompt": "A new file was just created in the knowledge vault's knowledge/ folder (~/Documents/Engineering Knowledge Base/knowledge/). Open it and verify the YAML front matter is complete per docs/templates/knowledge-note-template.md: generated, repo, source-commit, watch-paths, tags, status. If anything is missing or repo/source-commit look like unresolved placeholders, fix them (run git -C <repo> rev-parse --short HEAD for the stamp) and show exactly what you changed. If everything is already complete, say nothing about this check."
+      }
+    },
+    {
+      "name": "session-start-freshness-check",
+      "description": "OPT-IN (enabled:false by default because it spends a little time/credits each session): at session start, run the doc freshness checker and speak up only if something is STALE.",
+      "trigger": "SessionStart",
+      "enabled": false,
+      "action": {
+        "type": "agent",
+        "prompt": "Silently run `pwsh tools/Check-DocFreshness.ps1` with your shell tool. If the summary reports 0 STALE docs, do not mention this check at all. If anything is STALE, tell the user in at most two lines which docs are stale and offer to regenerate (architecture docs via prompts/01, api-surface via the dumper) or re-verify (knowledge notes)."
+      }
+    }
+  ]
+}

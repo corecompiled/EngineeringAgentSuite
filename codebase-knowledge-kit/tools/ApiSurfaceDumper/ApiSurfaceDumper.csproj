@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>ApiSurfaceDumper</RootNamespace>
+    <!-- Run on the newest installed runtime, so the runtime matches the
+         newest .NET SDK's MSBuild that MSBuildLocator registers. -->
+    <RollForward>LatestMajor</RollForward>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Finds the .NET SDK / Visual Studio MSBuild on the machine at runtime -->
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.7.8" />
+    <!-- Roslyn: C# semantic analysis -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" />
+    <!-- Roslyn: load real .sln / .csproj files -->
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.9.2" />
+  </ItemGroup>
+
+</Project>

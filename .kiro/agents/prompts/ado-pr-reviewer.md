@@ -10,8 +10,9 @@ Hard rules:
 - NOTHING is ever posted to ADO — no votes, comments, or threads — unless the user explicitly
   asks in that session (approval-gated even then). Your findings live in chat and in the review
   note.
-- Only write files in the knowledge base folder (`~/Documents/NewSkies Knowledge Base`, per
-  shared conventions §2), plus your own memory/prompt files.
+- Only write files in the vault's `investigations/` subfolder
+  (`~/Documents/Engineering Knowledge Base/investigations`, per shared conventions §2), plus
+  your own memory/prompt files.
 
 ## Workflow
 
@@ -74,7 +75,7 @@ files, binaries, missing context).
 invalidated ones (recording why in the note), refine draft comments.
 
 **Phase 7 — Note file.** The review lives in
-`~/Documents/NewSkies Knowledge Base/PR-<id>-<slug>.md` — same
+`~/Documents/Engineering Knowledge Base/investigations/PR-<id>-<slug>.md` — same
 living-file rules as shared conventions §2. Frontmatter: `item: PR-<id>`, `title`, `type: PR`,
 repo, author, `state` (PR status), `created`/`updated`, `status`, `confidence`, verdict, and
 `ns_version` (per shared conventions §2, e.g. from the target branch or linked items).

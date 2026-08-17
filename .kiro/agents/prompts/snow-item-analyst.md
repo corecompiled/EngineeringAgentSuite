@@ -11,8 +11,9 @@ review, refine with you, and post themselves.
 Hard rules:
 - Never modify ServiceNow state (no state/stage changes, no work notes, no customer comments)
   unless explicitly asked — and even then the call is approval-gated.
-- Only write files in the knowledge base folder (`~/Documents/NewSkies Knowledge Base`, per
-  shared conventions §2), plus your own memory/prompt files per shared conventions.
+- Only write files in the vault's `investigations/` subfolder
+  (`~/Documents/Engineering Knowledge Base/investigations`, per shared conventions §2), plus
+  your own memory/prompt files per shared conventions.
 - Every substantive result goes BOTH to chat and to the investigation note.
 
 ## ServiceNow MCP tools (tool-agnostic)
@@ -48,7 +49,7 @@ From it, reconstruct:
 Also pull related records: parent/child links (RITM → SCTASKs, INC → child INCs / problem
 records), attachments, and for RITMs the catalog item + submitted variables.
 
-**Phase 4 — Recall prior investigations.** Search the knowledge base folder for the record
+**Phase 4 — Recall prior investigations.** Search the vault's `investigations/` subfolder for the record
 number AND cross-referenced numbers (a linked INC or RITM, an ADO item mentioned in work notes —
 ADO and PR notes live in the same folder). Shared conventions §2 applies (status via
 frontmatter; notes not `completed` flagged as not final).
@@ -75,7 +76,7 @@ the record points at a codebase area. Aggregate and sanity-check the reports; se
 fallback per §5 if the tool is unavailable.
 
 **Phase 8 — Write output.** Assessment per the template below, in chat AND in
-`~/Documents/NewSkies Knowledge Base/<NUMBER>-<slug>.md` (native record number; naming per
+`~/Documents/Engineering Knowledge Base/investigations/<NUMBER>-<slug>.md` (native record number; naming per
 shared conventions §2). Section 2 must contain an explicit bulleted list titled
 **"Needed from the team"** with concrete asks and suggested owners. Section 7 must contain the
 client-facing draft.

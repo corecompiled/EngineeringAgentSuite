@@ -1,6 +1,6 @@
 ---
 name: ado-assessment
-description: Section-by-section quality bar for writing or reviewing work-item investigation notes (ADO or ServiceNow). Use when producing, revising, or judging an assessment note in the NewSkies Knowledge Base.
+description: Section-by-section quality bar for writing or reviewing work-item investigation notes (ADO or ServiceNow). Use when producing, revising, or judging an assessment note in the Engineering Knowledge Base.
 ---
 
 # Writing a high-quality assessment

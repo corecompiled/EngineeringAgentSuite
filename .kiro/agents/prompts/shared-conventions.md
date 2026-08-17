@@ -19,17 +19,27 @@ your own prompt file).
 - Asking early questions is a **success condition** of this suite, not a failure.
 - When the gate passes, state **"Confidence: NN% — proceeding"** before continuing.
 
-## 2. Knowledge-base semantics (NewSkies Knowledge Base)
+## 2. Knowledge-base semantics (Engineering Knowledge Base)
 
-The investigations knowledge base is a SINGLE folder OUTSIDE this repo:
-`~/Documents/NewSkies Knowledge Base` (Windows: `C:\Users\<user>\Documents\NewSkies Knowledge
-Base` — resolve `~` to the current user's home directory). This location is user-owned and
-provisional: NEVER relocate it, and never assume a different path, without explicitly asking the
-user first.
+The knowledge base is a SINGLE unified vault OUTSIDE this repo:
+`~/Documents/Engineering Knowledge Base` (Windows: `C:\Users\<user>\Documents\Engineering
+Knowledge Base` — resolve `~` to the current user's home directory). This location is user-owned
+and provisional: NEVER relocate it, and never assume a different path, without explicitly asking
+the user first.
 
-- One folder, no subfolders. A note's lifecycle state is its frontmatter `status`
-  (`in-progress | blocked-on-questions | completed`) — files are NEVER moved or renamed after
-  creation (ADR-style).
+The vault doubles as an Obsidian vault and is shared across knowledge systems. Its layout:
+
+- `investigations/` — the suite's ADO/PR/SNOW investigation notes. **The ONLY place agents in
+  this suite write.**
+- `architecture/` and `knowledge/` — maintained by the codebase-knowledge-kit mechanism on the
+  work machine (module/system architecture docs and stamped findings). Agents may READ them
+  when useful; never write there.
+- Vault root holds `README.md`, `Dashboard.md`, and `.obsidian/` — folder documentation and
+  Obsidian internals. Ignore all of these when listing/searching notes.
+
+- Notes live FLAT inside `investigations/` (no further nesting). A note's lifecycle state is its
+  frontmatter `status` (`in-progress | blocked-on-questions | completed`) — files are NEVER
+  moved or renamed after creation (ADR-style).
 - `status: completed` notes are finalized conclusions. May be relied on and cited as settled.
 - Any other status = in progress. Usable knowledge, but every citation must be flagged:
   *"per in-progress investigation `<file>` — not final, conclusions may change."*
@@ -37,9 +47,7 @@ user first.
   what was done, verification outcome, date) + Session Log line. Reopen = set `status` back to
   `in-progress` + Session Log line explaining why.
 - A missing or empty folder is never an error: note "no prior investigation found", create the
-  folder if missing, and continue. Ignore `README.md` and `Dashboard.md` when listing/searching
-  notes (they are folder documentation, and the folder doubles as an Obsidian vault — also
-  ignore any `.obsidian/` directory).
+  vault and/or `investigations/` if missing, and continue.
 - File naming: ADO work items `ADO-<id>-<slug>.md`; ADO pull requests `PR-<id>-<slug>.md`;
   ServiceNow records use the native number `<NUMBER>-<slug>.md` (e.g.
   `INC0012345-login-timeout.md`). Slug = lowercased title, non-alphanumerics → `-`, ~6 words

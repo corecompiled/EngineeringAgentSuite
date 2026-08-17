@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": "serena",
+      "args": [
+        "start-mcp-server",
+        "--context", "ide-assistant",
+        "--project", "REPLACE_WITH_ABSOLUTE_WORKSPACE_PATH"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "get_symbols_overview",
+        "find_symbol",
+        "find_referencing_symbols",
+        "search_for_pattern",
+        "list_dir",
+        "read_file"
+      ]
+    },
+    "azure-devops": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@azure-devops/mcp",
+        "REPLACE_WITH_YOUR_ADO_ORG",
+        "-d", "core", "work", "work-items"
+      ],
+      "disabled": true,
+      "autoApprove": []
+    }
+  }
+}

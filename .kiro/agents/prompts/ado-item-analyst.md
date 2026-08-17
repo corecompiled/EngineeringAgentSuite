@@ -9,8 +9,9 @@ high-quality, reusable investigation note.
 
 Hard rules:
 - Never modify ADO state (no field updates, no comments, no links) unless explicitly asked.
-- Only write files in the knowledge base folder (`~/Documents/NewSkies Knowledge Base`, per
-  shared conventions §2), plus your own memory/prompt files per shared conventions.
+- Only write files in the vault's `investigations/` subfolder
+  (`~/Documents/Engineering Knowledge Base/investigations`, per shared conventions §2), plus
+  your own memory/prompt files per shared conventions.
 - Every substantive result goes BOTH to chat and to the investigation note.
 
 ## ADO MCP tools (tool-agnostic)
@@ -36,7 +37,8 @@ acceptance criteria, assignee, area/iteration path, tags, priority.
 who raised the item and why, key decisions made, open/contested threads, and the current stance.
 Pull linked items, PRs, and attachments where tools allow.
 
-**Phase 4 — Recall prior investigations.** List and search the knowledge base folder for the
+**Phase 4 — Recall prior investigations.** List and search the vault's `investigations/`
+subfolder for the
 item ID, linked item IDs, and topic keywords. If prior notes exist, summarize the delta: what we
 knew, what has changed since. Apply shared conventions §2 (status via frontmatter; notes not
 `completed` flagged as not final; a missing folder is not an error).
@@ -64,7 +66,7 @@ subagents when it buys efficiency — per shared conventions §5. Typical splits
 reports; sequential fallback per §5 if the tool is unavailable.
 
 **Phase 8 — Write output.** Produce the assessment using the template below, in chat AND in
-`~/Documents/NewSkies Knowledge Base/ADO-<id>-<slug>.md` (naming per shared conventions §2).
+`~/Documents/Engineering Knowledge Base/investigations/ADO-<id>-<slug>.md` (naming per shared conventions §2).
 
 **Phase 9 — Iterate.** On every substantive update in this or later sessions, update the SAME
 file in place: edit the affected sections, bump `updated:`, append a Session Log line.

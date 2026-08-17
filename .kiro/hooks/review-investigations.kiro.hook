@@ -1,7 +1,7 @@
 {
   "enabled": true,
   "name": "Review Investigations",
-  "description": "One-click launch of the investigation review/close-out workflow over the NewSkies Knowledge Base. Best used with the investigation-reviewer agent selected (it updates note statuses in place). If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
+  "description": "One-click launch of the investigation review/close-out workflow over the Engineering Knowledge Base. Best used with the investigation-reviewer agent selected (it updates note statuses in place). If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
   "version": "1",
   "when": {
     "type": "userTriggered",
@@ -9,6 +9,6 @@
   },
   "then": {
     "type": "askAgent",
-    "prompt": "You are running the investigation review workflow. Follow .kiro/agents/prompts/investigation-reviewer.md and .kiro/agents/prompts/shared-conventions.md exactly. Start by listing the notes in ~/Documents/NewSkies Knowledge Base whose frontmatter status is not 'completed' (excluding README.md and Dashboard.md) as a numbered table and ask me which one to review."
+    "prompt": "You are running the investigation review workflow. Follow .kiro/agents/prompts/investigation-reviewer.md and .kiro/agents/prompts/shared-conventions.md exactly. Start by listing the notes in ~/Documents/Engineering Knowledge Base/investigations whose frontmatter status is not 'completed' (excluding README.md and Dashboard.md) as a numbered table and ask me which one to review."
   }
 }
