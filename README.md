@@ -109,6 +109,8 @@ Start an agent, then just talk. Examples of what to say:
 | Check all skills conform | `skill-manager` | `Audit all skills` → report → approve retrofits |
 | Re-check a skill vs live code | `skill-manager` | `Revalidate skill <name>` (run inside the code workspace) |
 | Change agent behavior | any agent | `From now on, always <rule>` → it updates its own prompt |
+| Check KB health | any (best: `investigation-reviewer`) | "KB Doctor" hook — or `Run kb-doctor.ps1 and walk me through fixes` |
+| Morning digest | `ado-pr-reviewer` | "Morning Triage" hook — or `Give me my morning triage digest` |
 
 ### Launching
 
@@ -171,6 +173,10 @@ against the live codebase: open the code repo as the workspace and the suite is 
    any `WHERE file.folder = ...` filter in `Dashboard.md` must be updated to `investigations`.
    If agents on the machine had memorized the old path, mention the rename in their first
    session — they correct stale memory facts in place (shared conventions §3).
+
+   Then protect it: run `.\Backup-KnowledgeBase.ps1` once (initializes the vault's own git
+   repo and commits the first snapshot) and optionally register the weekly scheduled task
+   (one-liner in section 4, Maintenance).
 4. Edit `.kiro/settings/mcp.json`: replace the `REPLACE_ME` values for the `ado` and `snow`
    servers (`"type": "http"` + `url` for remote servers); set `"disabled": false`; keep the
    keys named `ado`/`snow` so pre-approved tool patterns match; credentials via env vars
@@ -209,7 +215,9 @@ against the live codebase: open the code repo as the workspace and the suite is 
 10. `skill-manager` → `Audit all skills` produces the conformance report; retrofit + revalidate
     behave as documented.
 11. `.\healthcheck.ps1` → lint, reference, memory, and drift checks all pass.
-12. Self-maintenance: "from now on, always include a rollback section in Dev Notes" → the
+12. `.\kb-doctor.ps1` → exits 0 on a fresh vault (0 FAIL); `.\Backup-KnowledgeBase.ps1` →
+    snapshot committed (or "no changes since last backup" on a repeat run).
+13. Self-maintenance: "from now on, always include a rollback section in Dev Notes" → the
     agent edits its own prompt, logs the change, applies it next session.
 
 ---
