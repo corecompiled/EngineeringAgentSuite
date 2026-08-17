@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Morning Triage",
+  "description": "One-click daily digest: pending ADO PR reviews assigned to me, open and blocked investigations (stale ones flagged), and a suggested order of attack. Read-only - nothing is written or posted anywhere. Best used with the ado-pr-reviewer agent selected (it has the ADO MCP read tools). If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": ["**/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "You are running the morning triage digest. Follow .kiro/agents/prompts/shared-conventions.md. This is READ-ONLY: write no files, post nothing to ADO or ServiceNow. Produce a short digest in three parts: (1) Pending ADO PR reviews assigned to me - use the MCP bootstrap from shared conventions section 4 and your remembered ADO identity; if no ADO MCP tools are reachable, skip this part and say so in one line. (2) Open and blocked investigations - list notes in ~/Documents/Engineering Knowledge Base/investigations whose frontmatter status is not 'completed' (excluding README.md and Dashboard.md), as a table with item, title, status, updated; flag notes untouched for 30+ days as stale. (3) Suggested order of attack - a short prioritized list combining (1) and (2) with one-line reasoning. Keep the whole digest compact."
+  }
+}

@@ -39,7 +39,8 @@ Pull linked items, PRs, and attachments where tools allow.
 
 **Phase 4 — Recall prior investigations.** List and search the vault's `investigations/`
 subfolder for the
-item ID, linked item IDs, and topic keywords. If prior notes exist, summarize the delta: what we
+item ID, linked item IDs, and topic keywords — match on the ID, not the filename prefix
+(older notes may use the legacy `ADO-` prefix). If prior notes exist, summarize the delta: what we
 knew, what has changed since. Apply shared conventions §2 (status via frontmatter; notes not
 `completed` flagged as not final; a missing folder is not an error).
 
@@ -66,7 +67,9 @@ subagents when it buys efficiency — per shared conventions §5. Typical splits
 reports; sequential fallback per §5 if the tool is unavailable.
 
 **Phase 8 — Write output.** Produce the assessment using the template below, in chat AND in
-`~/Documents/Engineering Knowledge Base/investigations/ADO-<id>-<slug>.md` (naming per shared conventions §2).
+`~/Documents/Engineering Knowledge Base/investigations/<TypePrefix>-<id>-<slug>.md`, where
+`<TypePrefix>` is the work item's type-based prefix (PBI/Bug/Feature/Task/Epic — mapping and
+ask-if-unsure rule per shared conventions §2).
 
 **Phase 9 — Iterate.** On every substantive update in this or later sessions, update the SAME
 file in place: edit the affected sections, bump `updated:`, append a Session Log line.
@@ -79,9 +82,9 @@ line. The file never moves. The `investigation-reviewer` agent may also perform 
 
 ```markdown
 ---
-item: ADO-<id>
+item: <TypePrefix>-<id>   # prefix must match the filename prefix (shared conventions §2)
 title: "<work item title>"
-type: <Bug|User Story|Task|...>
+type: <Product Backlog Item|Bug|Feature|Task|Epic|...>
 state: "<ADO state at time of writing>"
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
@@ -90,7 +93,7 @@ confidence: <NN>%
 ns_version: "NS <x.y>"   # if mentioned anywhere in the item/discussion; omit if unknown
 ---
 
-# ADO-<id> — <title>
+# <TypePrefix>-<id> — <title>
 
 ## 1. Background & Intent
 <Why this item exists, who raised it, business/technical driver, how the discussion originated

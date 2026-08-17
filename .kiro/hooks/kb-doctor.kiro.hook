@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "KB Doctor",
+  "description": "One-click health check of the Engineering Knowledge Base vault: runs kb-doctor.ps1 (frontmatter contract, statuses, type-prefix naming, duplicates, wikilinks, stale notes) and walks through fixes. Best used with the investigation-reviewer agent selected (its write fence allows in-place frontmatter fixes in investigations/). If this hook doesn't appear in the Agent Hooks panel, recreate it there manually with this same prompt.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": ["**/*"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "You are running the knowledge-base health check. Follow .kiro/agents/prompts/shared-conventions.md (especially section 2). Run kb-doctor.ps1 from the workspace root with your shell tool (powershell -NoProfile -ExecutionPolicy Bypass -File kb-doctor.ps1); if the script is missing, say so and stop. Summarize the FAILs and WARNs grouped by note, in a short table. Then offer to fix frontmatter issues IN PLACE with my approval per item - never rename or move a note file (fixing a naming WARN means flagging it to me, not renaming). If everything passes, say so in one line."
+  }
+}

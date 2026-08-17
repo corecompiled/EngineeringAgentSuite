@@ -65,7 +65,9 @@ Loaded by every agent; the rules that make the suite coherent:
 - The vault is shared with the `codebase-knowledge-kit` mechanism on the work machine, which
   maintains sibling `architecture/` and `knowledge/` subfolders (module/system docs and
   stamped findings). Suite agents may read those but only ever write in `investigations/`.
-- Naming: `ADO-<id>-<slug>.md`, `PR-<id>-<slug>.md`, native ServiceNow numbers
+- Naming: ADO work items use a type-based prefix — `PBI-<id>-<slug>.md`, `Bug-<id>-<slug>.md`,
+  `Feature-<id>-<slug>.md` (also Task/Epic; agents ask if the type doesn't map cleanly) —
+  plus `PR-<id>-<slug>.md` for pull requests and native ServiceNow numbers
   (`INC0012345-<slug>.md`). One living note per item, updated in place across sessions.
 - Frontmatter includes `ns_version` (e.g. `"NS 4.10"`) — extracted automatically whenever a
   NewSkies version is mentioned anywhere in the item, discussion, or by you — so the dashboard
@@ -123,7 +125,7 @@ function skills  { kiro-cli chat --agent skill-manager }
 
 IDE: the agent picker, the Ctrl+Alt+1..6 shortcuts, or the one-click hooks in the Agent Hooks
 panel ("Analyze ADO Item", "Analyze SNOW Item", "Ask the Codebase", "Review Investigations",
-"Review My PRs", "Manage Skills"). Hooks use the `.kiro.hook` manual-trigger format; if your
+"Review My PRs", "Manage Skills", "KB Doctor", "Morning Triage"). Hooks use the `.kiro.hook` manual-trigger format; if your
 Kiro version doesn't show them, recreate them in the panel with the prompt text inside each
 hook file — and select the matching agent first so the right write fences apply.
 
@@ -191,7 +193,7 @@ against the live codebase: open the code repo as the workspace and the suite is 
    restart → it doesn't ask again.
 4. Give a deliberately vague item → it stops at the confidence gate with questions (every
    agent should do this on vague input).
-5. Answer → it writes `~/Documents/Engineering Knowledge Base/investigations/ADO-<id>-<slug>.md`; later updates
+5. Answer → it writes `~/Documents/Engineering Knowledge Base/investigations/Bug-<id>-<slug>.md` (type-based prefix per the item's type); later updates
    edit the same file. (If your Kiro build doesn't match `~/...` permission patterns, each KB
    write asks once — functionally fine.)
 6. `snow-item-analyst` with a real record → work notes vs customer comments distinguished,
@@ -228,6 +230,17 @@ against the live codebase: open the code repo as the workspace and the suite is 
 - **Health check**: `.\healthcheck.ps1` lints all configs, verifies every referenced file
   exists, confirms memory files, and reports repo-vs-global drift. Run it after edits and
   before/after `install.ps1`.
+- **KB doctor**: `.\kb-doctor.ps1` deterministically validates the vault's `investigations/`
+  notes against the shared-conventions §2 contract — frontmatter keys, status values,
+  type-prefix naming, duplicate items (including the same work-item ID under two prefixes),
+  wikilinks, stale open notes — plus vault structure. Exit 1 on contract violations. The
+  "KB Doctor" hook runs it one-click (pick `investigation-reviewer` first so fixes can be
+  applied in place).
+- **KB backup**: the vault deliberately lives outside any code repo, so
+  `.\Backup-KnowledgeBase.ps1` gives it its own git history — init on first run (ignoring
+  Obsidian's `workspace*.json` churn), snapshot commit per run, no-op when nothing changed.
+  Optional weekly scheduled task:
+  `schtasks /Create /TN "KB Backup" /SC WEEKLY /D SUN /TR "powershell -NoProfile -ExecutionPolicy Bypass -File <this repo>\Backup-KnowledgeBase.ps1"`.
 - **Changelog policy**: git history is the changelog for repo files (no per-file changelog
   sections); agent memory Changelogs record behavior changes; KB notes carry Session Logs.
 

@@ -48,10 +48,18 @@ The vault doubles as an Obsidian vault and is shared across knowledge systems. I
   `in-progress` + Session Log line explaining why.
 - A missing or empty folder is never an error: note "no prior investigation found", create the
   vault and/or `investigations/` if missing, and continue.
-- File naming: ADO work items `ADO-<id>-<slug>.md`; ADO pull requests `PR-<id>-<slug>.md`;
-  ServiceNow records use the native number `<NUMBER>-<slug>.md` (e.g.
-  `INC0012345-login-timeout.md`). Slug = lowercased title, non-alphanumerics → `-`, ~6 words
-  max. Dates live in frontmatter (`created`/`updated`), never in the filename.
+- File naming: ADO work items use a TYPE-BASED prefix: `<TypePrefix>-<id>-<slug>.md`, where
+  the prefix comes from this fixed table (exact casing; source of truth is the work item type
+  returned by the ADO MCP server, or the type the user states):
+  `Product Backlog Item` → `PBI`, `Bug` → `Bug`, `Feature` → `Feature`, `Task` → `Task`,
+  `Epic` → `Epic`. If the type doesn't map cleanly or is unknown (item not fetched, ambiguous,
+  custom process-template type): ASK the user which prefix to use BEFORE writing the note —
+  never invent a prefix or silently default. The filename prefix and the frontmatter `item:`
+  prefix must always match. ADO pull requests: `PR-<id>-<slug>.md`. ServiceNow records use the
+  native number `<NUMBER>-<slug>.md` (e.g. `INC0012345-login-timeout.md`). Slug = lowercased
+  title, non-alphanumerics → `-`, ~6 words max. Dates live in frontmatter
+  (`created`/`updated`), never in the filename. Legacy `ADO-<id>-*` notes keep their filenames
+  (never renamed); when searching for prior notes, match on the item ID, not the prefix.
 - Frontmatter contract: `item`, `title`, `type`, `state` (source-system state), `created`,
   `updated`, `status`, `confidence`, `ns_version` (quoted, e.g. `"NS 4.10"`; omit or `""` when
   unknown).
